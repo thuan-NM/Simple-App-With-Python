@@ -7,31 +7,45 @@ class Search(ttk.Frame):
         ttk.Frame.__init__(self, *args, **kwargs)
 
         self._input = ttk.Entry(self)
-        self._input.insert(0, "Regex")
+        self._input.insert(0, "3TSearch")
         self._input.configure(foreground="gray")
+        # Create style Object
+        style = ttk.Style()
+        
+        style.configure('TButton', font =
+                    ('calibri', 10, 'bold'),
+                            borderwidth = '2')
+        style.configure('TEntry', font =
+                    ('calibri', 10, 'bold'),
+                            borderwidth = '2')
+        style.map('TButton', foreground = [('active', '!disabled', 'green')],
+                            background = [('active', 'black')])
 
         self._search_button = ttk.Button(self, text="Search")
         self._find_next = ttk.Button(self, text="Find next")
+        
+        self._find_next.grid(row=0, column=1, padx=(55,5), pady=10, sticky="nsew")
+        self._search_button.grid(row=0, column=2, padx=5, pady=10, sticky="nsew")
+        self._input.grid(row=0, column=3, padx=20, pady=10, ipady=1, sticky="nsew")
 
-        self._input.grid(row=0, column=1, padx=55, pady=10, ipady=3, sticky="nsew")
-        self._search_button.grid(row=0, column=2, padx=20, pady=10, sticky="nsew")
-        self._find_next.grid(row=0, column=3, padx=20, pady=10, sticky="nsew")
-
-        self.grid_columnconfigure(1, weight=1)
-        # self.grid_columnconfigure(4, weight=1)
-
+        self.grid_columnconfigure(3, weight=1)
+        
         self._input.bind("<FocusIn>", lambda event: self.handle_focus_in())
         self._input.bind("<FocusOut>", lambda event: self.handle_focus_out())
+        self._input.bind('<Return>', self.on_enter_pressed)
+
+    def on_enter_pressed(self, event):
+        self._search_button.invoke()  # Invokes the search_button click event
 
     def handle_focus_in(self):
-        if self.get_entry == "Regex":
+        if self.get_entry == "3TSearch":
             self._input.delete(0, tk.END)
-        self._input.config(foreground='black')
+        self._input.config(foreground='green')
 
     def handle_focus_out(self):
         if len(self.get_entry) <= 0:
             self._input.delete(0, tk.END)
-            self._input.insert(0, "Regex")
+            self._input.insert(0, "3TSearch")
             self._input.config(foreground='grey')
 
     @property

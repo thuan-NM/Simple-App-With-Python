@@ -12,7 +12,7 @@ class MainApplication(tk.Frame):
         self._menubar = tk.Menu()
         self._parent.config(menu=self._menubar)
 
-        self._sub_menu_file = tk.Menu(self._menubar, tearoff=False)
+        self._sub_menu_file = tk.Menu(self._menubar, tearoff=False, background='AliceBlue', activebackground='CornflowerBlue')
         self._sub_menu_file.add_command(label="   Open   ", command=self.open_file)
         self._sub_menu_file.add_command(label="   Save As   ", command=self.save_file)
         self._sub_menu_file.add_command(label="   New file    ", command=self.new_file)
@@ -23,7 +23,7 @@ class MainApplication(tk.Frame):
         self._controller = Controller(self)
         self._controller.pack(side="bottom", fill="both", expand=True)
 
-        self._edit_menu = tk.Menu(self._menubar, tearoff=0)
+        self._edit_menu = tk.Menu(self._menubar, tearoff=0, background='AliceBlue', activebackground='CornflowerBlue')
         self._menubar.add_cascade(label="    Edit    ", menu=self._edit_menu)
         self._edit_menu.add_command(label="    Undo    ", command=self.undo_text)
         self._edit_menu.add_command(label="    Redo    ", command=self.redo_text)
@@ -121,8 +121,9 @@ class MainApplication(tk.Frame):
 if __name__ == '__main__':
     root = tk.Tk()
 
-    root.title(" RegText - A minimal text editor with Regex support searching")
+    root.title("3TSearch - A simple text editor")
     root.minsize(400, 300)
+    root.iconbitmap(r'D:\code\THLT\3T.ico')
 
     MainApplication(root).pack(side="top", fill="both", expand=True)
     root.mainloop()
