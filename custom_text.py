@@ -10,6 +10,7 @@ class TextLineNumbers(tk.Canvas):
         tk.Canvas.__init__(self, parent, *args, **kwargs)
         self._parent = parent
         self._text_widget = None
+        self.configure(bg="DarkSeaGreen")
 
     @property
     def text_widget(self):
@@ -143,13 +144,13 @@ class CustomText(tk.Frame):
         self._text_hsb = ttk.Scrollbar(self, orient="horizontal", command=self._text.xview)
         self._text.configure(yscrollcommand=self._text_vsb.set, xscrollcommand=self._text_hsb.set)
 
-        self._text.tag_config("match", background="yellow", foreground="black")
+        self._text.tag_config("match", background="green", foreground="white")
         self._text.tag_raise("sel")
 
-        self._line_numbers = TextLineNumbers(self, width=50)
+        self._line_numbers = TextLineNumbers(self, width=20)
         self._line_numbers.attach(self._text)
 
-        self._text.grid(row=0, column=1, sticky="nsew")
+        self._text.grid(row=0, column=1, sticky="nsew", padx=(0,10))
         self._text_vsb.grid(row=0, column=2, sticky="ns")
         self._text_hsb.grid(row=1, column=1, sticky="ew")
 

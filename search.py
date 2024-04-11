@@ -5,12 +5,11 @@ from tkinter import ttk
 class Search(ttk.Frame):
     def __init__(self, *args, **kwargs):
         ttk.Frame.__init__(self, *args, **kwargs)
-
+        style = ttk.Style()
         self._input = ttk.Entry(self)
         self._input.insert(0, "3TSearch")
         self._input.configure(foreground="gray")
         # Create style Object
-        style = ttk.Style()
         
         style.configure('TButton', font =
                     ('calibri', 10, 'bold'),
@@ -20,13 +19,13 @@ class Search(ttk.Frame):
                             borderwidth = '2')
         style.map('TButton', foreground = [('active', '!disabled', 'green')],
                             background = [('active', 'black')])
-
+        style.configure('TFrame',background='DarkSeaGreen')
         self._search_button = ttk.Button(self, text="Search")
         self._find_next = ttk.Button(self, text="Find next")
         
-        self._find_next.grid(row=0, column=1, padx=(55,5), pady=10, sticky="nsew")
+        self._find_next.grid(row=0, column=1, padx=(25,5), pady=10, sticky="nsew")
         self._search_button.grid(row=0, column=2, padx=5, pady=10, sticky="nsew")
-        self._input.grid(row=0, column=3, padx=20, pady=10, ipady=1, sticky="nsew")
+        self._input.grid(row=0, column=3, padx=(20,25), pady=10, ipady=1, sticky="nsew")
 
         self.grid_columnconfigure(3, weight=1)
         
@@ -46,7 +45,7 @@ class Search(ttk.Frame):
         if len(self.get_entry) <= 0:
             self._input.delete(0, tk.END)
             self._input.insert(0, "3TSearch")
-            self._input.config(foreground='grey')
+            self._input.config(foreground='gray')
 
     @property
     def get_entry(self):

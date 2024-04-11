@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog as fd
+from tkinter import ttk
+
 
 from controller import Controller
 
@@ -7,8 +9,9 @@ from controller import Controller
 class MainApplication(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
-        self._parent = parent
+        style = ttk.Style()
 
+        self._parent = parent
         self._menubar = tk.Menu()
         self._parent.config(menu=self._menubar)
 
@@ -123,7 +126,7 @@ if __name__ == '__main__':
 
     root.title("3TSearch - A simple text editor")
     root.minsize(400, 300)
-    root.iconbitmap(r'D:\code\THLT\3T.ico')
+    root.iconbitmap(r'.\3T.ico')
 
     MainApplication(root).pack(side="top", fill="both", expand=True)
     root.mainloop()
