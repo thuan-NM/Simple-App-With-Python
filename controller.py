@@ -3,6 +3,7 @@ from tkinter import messagebox
 
 from search import Search
 from custom_text import CustomText
+from replace import ReplaceDialog
 
 
 class Controller(tk.Frame):
@@ -31,6 +32,21 @@ class Controller(tk.Frame):
             messagebox.showinfo("showinfo", f"There are {len(all_matches)} matches in the entire file.")
 
         self._text_widget.text_area.clean_all_tag("match")
+
+    def replace_text(self):
+        dialog = ReplaceDialog(self)
+        find_text = dialog.find_text
+        replace_text = dialog.replace_text
+        if find_text and replace_text:
+            self._text_widget.text_area.replace_all(find_text, replace_text)
+    
+    def open_replace_dialog(self):
+        dialog = ReplaceDialog(self)
+        find_text = dialog.find_text
+        replace_text = dialog.replace_text
+
+        if find_text and replace_text:
+            self._text_widget.text_area.replace_all(find_text, replace_text)
 
     def find_next(self):
         pattern = self._search.get_entry

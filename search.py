@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from replace import ReplaceDialog
 
 
 class Search(ttk.Frame):
@@ -19,15 +20,17 @@ class Search(ttk.Frame):
                             borderwidth = '2')
         style.map('TButton', foreground = [('active', '!disabled', 'green')],
                             background = [('active', 'black')])
-        style.configure('TFrame',background='DarkSeaGreen')
+        # style.configure('TFrame',background='DarkSeaGreen')
         self._search_button = ttk.Button(self, text="Search")
         self._find_next = ttk.Button(self, text="Find next")
+        self._replace = ttk.Button(self, text="Replace", command=self.open_replace_dialog)
         
         self._find_next.grid(row=0, column=1, padx=(25,5), pady=10, sticky="nsew")
         self._search_button.grid(row=0, column=2, padx=5, pady=10, sticky="nsew")
-        self._input.grid(row=0, column=3, padx=(20,25), pady=10, ipady=1, sticky="nsew")
+        self._replace.grid(row=0, column=3, padx=5, pady=10, sticky="nsew")
+        self._input.grid(row=0, column=4, padx=(20,25), pady=10, ipady=1, sticky="nsew")
 
-        self.grid_columnconfigure(3, weight=1)
+        self.grid_columnconfigure(4, weight=1)
         
         self._input.bind("<FocusIn>", lambda event: self.handle_focus_in())
         self._input.bind("<FocusOut>", lambda event: self.handle_focus_out())
@@ -46,6 +49,9 @@ class Search(ttk.Frame):
             self._input.delete(0, tk.END)
             self._input.insert(0, "3TSearch")
             self._input.config(foreground='gray')
+
+    def open_replace_dialog(self):
+        dialog = ReplaceDialog(self)
 
     @property
     def get_entry(self):

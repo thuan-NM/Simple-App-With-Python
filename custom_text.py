@@ -10,7 +10,7 @@ class TextLineNumbers(tk.Canvas):
         tk.Canvas.__init__(self, parent, *args, **kwargs)
         self._parent = parent
         self._text_widget = None
-        self.configure(bg="DarkSeaGreen")
+        # self.configure(bg="DarkSeaGreen")
 
     @property
     def text_widget(self):
@@ -55,7 +55,7 @@ class TextWithProxy(tk.Text):
     def __init__(self, parent, *args, **kwargs):
         tk.Text.__init__(self, parent, *args, **kwargs)
         self.parent = parent
-
+        self.configure(bg="DarkSeaGreen")
         # Tạo một proxy(design pattern) để handle quá trình tcl accpet và response với thao tác người dùng
         # self._w là tên của widget
         self._orig = self._w + "_orig"
@@ -132,7 +132,12 @@ class TextWithProxy(tk.Text):
     def highlight_pattern(self, pattern, tag="match"):
         self.clean_all_tag(tag)
         return self.apply_tag_to_all(pattern, tag)
-
+    
+    def replace_all(self, find_text, replace_text):
+        content = self.get('1.0', tk.END)
+        new_content = content.replace(find_text, replace_text)
+        self.delete('1.0', tk.END)
+        self.insert('1.0', new_content)
 
 class CustomText(tk.Frame):
     def __init__(self, parent, *args, **kwargs):

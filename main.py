@@ -10,7 +10,6 @@ class MainApplication(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
         style = ttk.Style()
-
         self._parent = parent
         self._menubar = tk.Menu()
         self._parent.config(menu=self._menubar)
