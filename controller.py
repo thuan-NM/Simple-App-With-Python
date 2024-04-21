@@ -19,6 +19,8 @@ class Controller(tk.Frame):
 
         self._search.search_button.configure(command=self.highlight_text)
         self._search.find_next.configure(command=self.find_next)
+        self._search._replace.configure(command=self.replace_text)
+
 
     def highlight_text(self):
         pattern = self._search.get_entry
