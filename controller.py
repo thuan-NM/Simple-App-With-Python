@@ -41,14 +41,8 @@ class Controller(tk.Frame):
         replace_text = dialog.replace_text
         if find_text and replace_text:
             self._text_widget.text_area.replace_all(find_text, replace_text)
-    
-    def open_replace_dialog(self):
-        dialog = ReplaceDialog(self)
-        find_text = dialog.find_text
-        replace_text = dialog.replace_text
-
-        if find_text and replace_text:
-            self._text_widget.text_area.replace_all(find_text, replace_text)
+        else:
+            messagebox.showinfo("showinfo", f"Please fill the form first!!!")
 
     def find_next(self):
         pattern = self._search.get_entry

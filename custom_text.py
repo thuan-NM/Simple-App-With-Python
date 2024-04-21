@@ -1,7 +1,7 @@
 import re
 import tkinter as tk
 from tkinter import ttk
-
+from tkinter import messagebox
 
 # đánh số
 # Kế thừa từ Canvas
@@ -55,7 +55,7 @@ class TextWithProxy(tk.Text):
     def __init__(self, parent, *args, **kwargs):
         tk.Text.__init__(self, parent, *args, **kwargs)
         self.parent = parent
-        self.configure(bg="DarkSeaGreen")
+        self.configure(font="11x")
         # Tạo một proxy(design pattern) để handle quá trình tcl accpet và response với thao tác người dùng
         # self._w là tên của widget
         self._orig = self._w + "_orig"
@@ -138,6 +138,7 @@ class TextWithProxy(tk.Text):
         new_content = content.replace(find_text, replace_text)
         self.delete('1.0', tk.END)
         self.insert('1.0', new_content)
+        messagebox.showinfo("showinfo", f"Replace '{find_text}' to '{replace_text}' successfully!!!")
 
 class CustomText(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
@@ -149,7 +150,7 @@ class CustomText(tk.Frame):
         self._text_hsb = ttk.Scrollbar(self, orient="horizontal", command=self._text.xview)
         self._text.configure(yscrollcommand=self._text_vsb.set, xscrollcommand=self._text_hsb.set)
 
-        self._text.tag_config("match", background="green", foreground="white")
+        self._text.tag_config("match", background="yellow", foreground="black")
         self._text.tag_raise("sel")
 
         self._line_numbers = TextLineNumbers(self, width=20)
