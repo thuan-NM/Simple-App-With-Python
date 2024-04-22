@@ -38,6 +38,7 @@ class MainApplication(tk.Frame):
         self._current_change = -1
         self._applying_changes = False
         self._typing = False
+        self.add_change()
 
         # Trace changes to update undo and redo buttons
         self._controller.text_widget.text_area.bind("<KeyRelease>", self.on_key_press)
@@ -49,22 +50,25 @@ class MainApplication(tk.Frame):
     def new_file(self):
         self._controller.text_widget.text_area.delete(1.0, tk.END)
         self.reset_changes()
+        self.add_change()
 
     def open_file(self):
         file_path = fd.askopenfilename()
         if file_path:
-            with open(file_path, 'r') as file:
+            with open(file_path, 'r',encoding='utf-8') as file:
                 self._controller.text_widget.text_area.delete(1.0, tk.END)
                 self._controller.text_widget.text_area.insert(tk.END, file.read())
                 self.reset_changes()
+        self.add_change()
 
     def save_file(self):
         file_path = fd.asksaveasfilename(filetypes=(("Text files", "*.txt"), ("All files", "*.")),
                                          defaultextension=".txt")
         if file_path:
-            with open(file_path, 'w') as file:
+            with open(file_path, 'w',encoding='utf-8') as file:
                 file.write(self._controller.text_widget.text_area.get(1.0, tk.END))
                 self.reset_changes()
+        self.add_change()
 
     def exit_file(self):
         self._parent.destroy()
@@ -73,6 +77,7 @@ class MainApplication(tk.Frame):
         self._parent.clipboard_clear()
         text = self._controller.text_widget.text_area.get("sel.first", "sel.last")
         self._parent.clipboard_append(text)
+        self.add_change()
 
     def cut_text(self):
         self.copy_text()
@@ -110,11 +115,12 @@ class MainApplication(tk.Frame):
     def add_change(self):
         content = self._controller.text_widget.text_area.get(1.0, tk.END)
         # Remove the changes after the current change index
-        if not self._changes or content != self._changes[self._current_change]:
+        if not self._changes or content != self._changes[-1]:
             self._changes = self._changes[: self._current_change + 1]
             self._changes.append(content)
-            self._current_change = len(self._changes) - 1
+            self._current_change = len(self._changes) -1
 
+            
     def reset_changes(self):
         self._changes = []
         self._current_change = -1
